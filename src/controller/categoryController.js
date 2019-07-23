@@ -3,9 +3,7 @@ const { response, errorResponse } = require('../library/response');
 
 async function getCategory(req, res) {
   try {
-
-    const result = await categoryService.getCategory();
-
+    const result = await categoryService.getCategory(); 
     response('Success', result, res, 200);
   } catch (error) {
     console.log(error);
