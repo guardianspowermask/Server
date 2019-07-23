@@ -6,6 +6,6 @@ const router = express.Router();
 const categoryController = require('../controller/categoryController');
 
 // category 가져오기
-router.get('/category', categoryController.getCategory);
+router.get('/', categoryController.getCategory);
 
 module.exports = router;
