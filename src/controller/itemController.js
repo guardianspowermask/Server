@@ -29,12 +29,12 @@ async function plusItemReport(req, res) {
 
 async function postItem(req, res) {
     try {
-      const { name, store, email, category } = req.body;
-      const { files } = req;
+      const { name, storeIdx, categoryIdx } = req.body;
+      const { file } = req;
+     
+      await itemService.addItem(name, storeIdx, categoryIdx, file);
   
-      await itemService.addItem(name, store, email, category, files);
-  
-      response('Success', res, 201);
+      response('Success', {}, res, 201);
     } catch (error) {
       console.log(error);
       errorResponse(error.message, res, error.statusCode);

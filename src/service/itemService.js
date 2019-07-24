@@ -1,4 +1,5 @@
 const itemDao = require('../dao/itemDao');
+const s3Location = require('../../config/s3Config').s3Location;
 
 async function getItem(categoryIdx, order) {
     const result = {};
@@ -72,13 +73,12 @@ async function addReport(itemIdx) {
     await itemDao.updateItemReport(itemIdx);
 }
 
-async function addItem(name, store, email, category, files) {
-
-    const img = files.img.location.split(s3Location)[1];
-
-    const result = await itemDao.insertItem(name, store, email, category, img);
-
-    return result;
+async function addItem(name, storeIdx, categoryIdx, file) {
+    const img = file.location.split(s3Location)[1];
+    await itemDao.insertItem(name, storeIdx, img);
+    const itemIdx = await itemDao.selectLastItemIdx();
+    const itemLastIdx = itemIdx[0]["LAST_INSERT_ID()"]
+    await itemDao.insertItemCategoryPair(itemLastIdx, categoryIdx);
 }
 
 module.exports = {
