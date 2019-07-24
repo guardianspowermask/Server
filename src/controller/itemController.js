@@ -20,7 +20,7 @@ async function plusItemReport(req, res) {
 
     await itemService.addReport(itemIdx);
 
-    response('Success', res, 201);
+    response('Success', {}, res, 201);
   } catch (error) {
     console.log(error);
     errorResponse(error.message, res, error.statusCode);
