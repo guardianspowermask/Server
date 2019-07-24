@@ -22,10 +22,7 @@ async function postCategory(name, replacements, file) {
   await categoryDao.addCategory(name, img);
   const categoryIdx = await itemDao.selectLastItemIdx();
   const categoryLastIdx = categoryIdx[0]["LAST_INSERT_ID()"]
-  console.log("category idx is")
-  console.log(categoryIdx)
-  console.log("replacements is" + replacements)
-  console.log("replacements length is" + replacements.length)
+
   for (let i = 0; i < replacements.length; i++) {
     await categoryDao.addReplacement(categoryLastIdx, replacements[i]);
   }
