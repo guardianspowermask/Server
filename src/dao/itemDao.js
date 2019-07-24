@@ -44,7 +44,7 @@ async function selectStoreDetail(storeIdx){
 
 async function updateItemReport(itemIdx){
     const sql = `
-
+    UPDATE Guardians.ITEM SET report_cnt = report_cnt+1 WHERE item_idx = ?;
     `;
 
     const result = await mysql.query(sql, [itemIdx]);

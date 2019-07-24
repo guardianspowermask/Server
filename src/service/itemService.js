@@ -7,7 +7,7 @@ async function getItem(categoryIdx, order) {
     //categoryIdx -1 이면 전체 item반환
     if (categoryIdx == -1) {
         itemIdxs = await itemDao.selectAllItemIdx();
-      } else {
+    } else {
         itemIdxs = await itemDao.selectItemIdx(categoryIdx);
     }
 
@@ -25,7 +25,7 @@ async function getItem(categoryIdx, order) {
       items.push(item[0]);
     }
     result.total_cnt = itemsLength;
-    //order -> 0 : report_cnt, 1 : date, 2 : name 
+    //sort -> 0 : report_cnt, 1 : date, 2 : name 
     const orderType = getOrderType(order);
     sort(items, orderType.name, orderType.desc);
     console.log(items);
@@ -69,9 +69,7 @@ function sort(dataArr, attr, desc) {
 }
 
 async function addReport(itemIdx) {
-    const result = await itemDao.updateItemReport(itemIdx);
-
-    return result;
+    await itemDao.updateItemReport(itemIdx);
 }
 
 async function addItem(name, store, email, category, files) {
