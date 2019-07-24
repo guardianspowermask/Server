@@ -18,7 +18,36 @@ async function selectReplaceWord(categoryIdx){
     return result;
 }
 
+async function addCategory(name, img){
+    const sql = `
+    INSERT INTO Guardians.CATEGORY (name, img) VALUES (?, ?);
+    `;
+    await mysql.query(sql, [name, img]);
+}
+
+async function addReplacement(categoryIdx, replacement){
+    const sql = `
+    INSERT INTO Guardians.REPLACEMENT (category_idx, name) VALUES (?, ?);
+    `;
+    await mysql.query(sql, [categoryIdx, replacement]);
+}
+
+
+async function updateCategoryItemCnt(categoryIdx){
+    const sql = `
+    UPDATE Guardians.CATEGORY SET item_cnt = item_cnt+1 WHERE category_idx = ?;
+    `;
+  
+    const result = await mysql.query(sql, [categoryIdx]);
+  
+    return result;
+  }
+
 module.exports = {
     selectCategory,
-    selectReplaceWord
+    selectReplaceWord,
+    addCategory,
+    addReplacement,
+    updateCategoryItemCnt
+    
 }
