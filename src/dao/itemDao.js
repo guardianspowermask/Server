@@ -10,6 +10,16 @@ async function selectItemIdx(categoryIdx){
     return result;
 }
 
+async function getItemCount(categoryIdx){
+    const sql = `
+    SELECT COUNT(*) FROM Guardians.ITEM
+    `;
+
+    const result = await mysql.query(sql);
+
+    return result;
+}
+
 
 async function selectAllItemIdx(){
     const sql = `
@@ -79,6 +89,7 @@ async function insertItemCategoryPair(itemIdx, categoryIdx){
 
 module.exports = {
     selectItemIdx,
+    getItemCount,
     selectAllItemIdx,
     selectItemDetail,
     selectStoreDetail,
