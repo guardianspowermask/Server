@@ -74,7 +74,7 @@ async function addReport(itemIdx) {
 }
 
 async function addItem(name, storeIdx, categoryIdx, file) {
-    const img = file.location.split(s3Location)[1];
+    const img = file.location
     await itemDao.insertItem(name, storeIdx, img);
     const itemIdx = await itemDao.selectLastItemIdx();
     const itemLastIdx = itemIdx[0]["LAST_INSERT_ID()"]

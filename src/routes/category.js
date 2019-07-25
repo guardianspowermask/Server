@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const upload = require('../library/s3Bucket').getMulter('goods');
+const upload = require('../library/s3Bucket').getMulter('guardians');
 
 // categoryController
 const categoryController = require('../controller/categoryController');
