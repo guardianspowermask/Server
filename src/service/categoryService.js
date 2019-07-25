@@ -5,6 +5,15 @@ const s3Location = require('../../config/s3Config').s3Location;
 
 async function getCategory() {
     const result = [];
+    const allItemCount = await itemDao.getItemCount();
+    const allItem = {
+      "category_idx": -1,
+      "name": "전체보기",
+      "item_cnt": allItemCount[0]["COUNT(*)"],
+      "img": "imgString",
+      "replace_words": []
+     };
+     result.push(allItem);
     const categories = await categoryDao.selectCategory();
     const categoryLength = categories.length;
     for (let i = 0; i < categoryLength; i++) {
