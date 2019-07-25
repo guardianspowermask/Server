@@ -21,7 +21,6 @@ async function getItem(categoryIdx, order) {
       const storeIdx = item[0].store_idx;
       const store = await itemDao.selectStoreDetail(storeIdx);
       delete item[0].store_idx;
-      delete item[0].date;
       item[0].store = store[0].name;
       item[0].email = store[0].email;
       item[0].facebook = store[0].facebook;

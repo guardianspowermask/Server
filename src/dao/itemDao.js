@@ -23,7 +23,7 @@ async function getItemCount(categoryIdx){
 
 async function selectAllItemIdx(){
     const sql = `
-    SELECT item_idx FROM Guardians.ITEM_CATEGORY
+    SELECT item_idx FROM Guardians.ITEM
     `;
 
     const result = await mysql.query(sql);
