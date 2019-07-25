@@ -17,6 +17,7 @@ async function getItem(categoryIdx, order) {
     for (let i = 0; i < itemsLength; i++) {
       const itemIdx = itemIdxs[i].item_idx;
       const item = await itemDao.selectItemDetail(itemIdx);
+      item[0].img = s3Location+item[0].img
       const storeIdx = item[0].store_idx;
       const store = await itemDao.selectStoreDetail(storeIdx);
       delete item[0].store_idx;
@@ -74,7 +75,7 @@ async function addReport(itemIdx) {
 }
 
 async function addItem(name, storeIdx, categoryIdx, file) {
-    const img = file.location
+    const img = file.location.split(s3Location)[1];
     await itemDao.insertItem(name, storeIdx, img);
     const itemIdx = await itemDao.selectLastItemIdx();
     const itemLastIdx = itemIdx[0]["LAST_INSERT_ID()"]

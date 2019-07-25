@@ -13,11 +13,12 @@ async function getCategory() {
       "img": "imgString",
       "replace_words": []
      };
-     result.push(allItem);
+    result.push(allItem);
     const categories = await categoryDao.selectCategory();
     const categoryLength = categories.length;
     for (let i = 0; i < categoryLength; i++) {
       const categoryIdx = categories[i].category_idx;
+      categories[i].img = s3Location+categories[i].img
       const replaceWords = await categoryDao.selectReplaceWord(categoryIdx);
       const replaceWordsArray = jsonToArray.parseObj(replaceWords, "name")
       categories[i].replace_words = replaceWordsArray
@@ -27,7 +28,7 @@ async function getCategory() {
 }
 
 async function postCategory(name, replacements, file) {
-  const img = file.location;
+  const img = file.location.split(s3Location)[1];
   await categoryDao.addCategory(name, img);
   const categoryIdx = await itemDao.selectLastItemIdx();
   const categoryLastIdx = categoryIdx[0]["LAST_INSERT_ID()"]
