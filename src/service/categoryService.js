@@ -10,7 +10,7 @@ async function getCategory() {
       "category_idx": -1,
       "name": "전체보기",
       "item_cnt": allItemCount[0]["COUNT(*)"],
-      "img": "imgString",
+      "img": s3Location+"guardians/2019/07/26/iconAll%403x.png",
       "replace_words": []
      };
     result.push(allItem);
