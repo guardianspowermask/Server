@@ -30,6 +30,9 @@ async function getCategory() {
 async function postCategory(name, replacements, file) {
   const img = file.location.split(s3Location)[1];
   await categoryDao.addCategory(name, img);
+  if (replacements == undefined) {
+    return;
+  }
   const categoryIdx = await itemDao.selectLastItemIdx();
   const categoryLastIdx = categoryIdx[0]["LAST_INSERT_ID()"]
 
