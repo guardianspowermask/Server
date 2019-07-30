@@ -32,22 +32,9 @@ async function addReplacement(categoryIdx, replacement){
     await mysql.query(sql, [categoryIdx, replacement]);
 }
 
-
-async function updateCategoryItemCnt(categoryIdx){
-    const sql = `
-    UPDATE Guardians.CATEGORY SET item_cnt = item_cnt+1 WHERE category_idx = ?;
-    `;
-  
-    const result = await mysql.query(sql, [categoryIdx]);
-  
-    return result;
-  }
-
 module.exports = {
     selectCategory,
     selectReplaceWord,
     addCategory,
     addReplacement,
-    updateCategoryItemCnt
-    
 }

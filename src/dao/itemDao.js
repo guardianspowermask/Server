@@ -62,31 +62,6 @@ async function updateItemReport(itemIdx){
     return result;
 }
 
-async function insertItem(name, storeIdx, img){
-    const sql = `
-    INSERT INTO Guardians.ITEM (name, img, store_idx) VALUES (?, ?, ?);
-    `;
-    const result = await mysql.query(sql, [name, img, storeIdx]);
-    return result;
-}
-
-async function selectLastItemIdx(){
-    const sql = `
-    SELECT LAST_INSERT_ID();
-    `;
-    const result = await mysql.query(sql);
-    return result;
-}
-
-
-
-async function insertItemCategoryPair(itemIdx, categoryIdx){
-    const sql = `
-    INSERT INTO Guardians.ITEM_CATEGORY (item_idx, category_idx) VALUES (?, ?);
-    `;
-    await mysql.query(sql, [itemIdx, categoryIdx]);
-}
-
 module.exports = {
     selectItemIdx,
     getItemCount,
@@ -94,7 +69,4 @@ module.exports = {
     selectItemDetail,
     selectStoreDetail,
     updateItemReport,
-    insertItem,
-    insertItemCategoryPair,
-    selectLastItemIdx
 }
