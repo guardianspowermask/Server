@@ -2,7 +2,7 @@ const mysql = require('../library/mysql');
 
 async function selectLastItemIdx(connection){
     const sql = `
-    SELECT LAST_INSERT_ID();
+    SELECT item_idx FROM Guardians.ITEM ORDER BY item_idx DESC LIMIT 1;
     `;
     const result = await connection.query(sql);
     return result;
@@ -35,7 +35,7 @@ async function insertItemTransaction(name, storeIdx, img, categoryIdx) {
 
         // select last itemIdx
         const itemIdx = await selectLastItemIdx(connection);
-        const itemLastIdx = itemIdx[0]["LAST_INSERT_ID()"]
+        const itemLastIdx = itemIdx[0].item_idx
 
         // insert item & category
         await insertItemCategoryPair(connection, itemLastIdx, categoryIdx);

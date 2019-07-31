@@ -25,6 +25,14 @@ async function addCategory(name, img){
     await mysql.query(sql, [name, img]);
 }
 
+async function selectLastCategoryIdx(){
+    const sql = `
+    SELECT category_idx FROM Guardians.CATEGORY ORDER BY category_idx DESC LIMIT 1;
+    `;
+    const result = await mysql.query(sql);
+    return result;
+}
+
 async function addReplacement(categoryIdx, replacement){
     const sql = `
     INSERT INTO Guardians.REPLACEMENT (category_idx, name) VALUES (?, ?);
@@ -36,5 +44,6 @@ module.exports = {
     selectCategory,
     selectReplaceWord,
     addCategory,
+    selectLastCategoryIdx,
     addReplacement,
 }
