@@ -2,6 +2,7 @@ const categoryDao = require('../dao/categoryDao');
 const jsonToArray = require('../library/jsonToArray');
 const itemDao = require('../dao/itemDao');
 const s3Location = require('../../config/s3Config').s3Location;
+const categoryTransaction = require('../dao/categoryTransaction.js');
 
 async function getCategory() {
     const result = [];
@@ -33,12 +34,7 @@ async function postCategory(name, replacements, file) {
   if (replacements == undefined) {
     return;
   }
-  const categoryIdx = await categoryDao.selectLastCategoryIdx();
-  const categoryLastIdx = categoryIdx[0].category_idx;
-
-  for (let i = 0; i < replacements.length; i++) {
-    await categoryDao.addReplacement(categoryLastIdx, replacements[i]);
-  }
+  await categoryTransaction.insertCategoryTransaction(replacements);
 }
 
 module.exports = {
