@@ -33,8 +33,8 @@ async function postCategory(name, replacements, file) {
   if (replacements == undefined) {
     return;
   }
-  const categoryIdx = await itemDao.selectLastItemIdx();
-  const categoryLastIdx = categoryIdx[0]["LAST_INSERT_ID()"]
+  const categoryIdx = await categoryDao.selectLastCategoryIdx();
+  const categoryLastIdx = categoryIdx[0].category_idx;
 
   for (let i = 0; i < replacements.length; i++) {
     await categoryDao.addReplacement(categoryLastIdx, replacements[i]);
