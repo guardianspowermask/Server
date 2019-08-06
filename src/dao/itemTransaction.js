@@ -38,8 +38,11 @@ async function insertItemTransaction(name, storeIdx, img, categoryIdx) {
         const itemLastIdx = itemIdx[0].item_idx
 
         // insert item & category
-        await insertItemCategoryPair(connection, itemLastIdx, categoryIdx);
-        await updateCategoryItemCnt(connection, categoryIdx);
+        for (let i = 0; i < categoryIdx.length; i++) {  
+            const currentcategoryIdx = categoryIdx[i];
+            await insertItemCategoryPair(connection, itemLastIdx, currentcategoryIdx);
+            await updateCategoryItemCnt(connection, currentcategoryIdx);
+        }
     });
 
 }
