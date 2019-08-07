@@ -39,7 +39,7 @@ async function insertItemTransaction(name, storeIdx, img, categoryIdx) {
 
         // insert item & category
         for (let i = 0; i < categoryIdx.length; i++) {  
-            const currentcategoryIdx = categoryIdx[i];
+            const currentcategoryIdx = parseInt(categoryIdx[i]);
             await insertItemCategoryPair(connection, itemLastIdx, currentcategoryIdx);
             await updateCategoryItemCnt(connection, currentcategoryIdx);
         }
