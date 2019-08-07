@@ -38,10 +38,17 @@ async function insertItemTransaction(name, storeIdx, img, categoryIdx) {
         const itemLastIdx = itemIdx[0].item_idx
 
         // insert item & category
-        for (let i = 0; i < categoryIdx.length; i++) {  
-            const currentcategoryIdx = parseInt(categoryIdx[i]);
-            await insertItemCategoryPair(connection, itemLastIdx, currentcategoryIdx);
-            await updateCategoryItemCnt(connection, currentcategoryIdx);
+        if (Array.isArray(categoryIdx)) {
+            //중복 카테고리 일때
+            for (let i = 0; i < categoryIdx.length; i++) {  
+                const currentcategoryIdx = parseInt(categoryIdx[i]);
+                await insertItemCategoryPair(connection, itemLastIdx, currentcategoryIdx);
+                await updateCategoryItemCnt(connection, currentcategoryIdx);
+            }
+        } else {
+            //단일 카테고리
+            await insertItemCategoryPair(connection, itemLastIdx, categoryIdx);
+            await updateCategoryItemCnt(connection, categoryIdx);
         }
     });
 
