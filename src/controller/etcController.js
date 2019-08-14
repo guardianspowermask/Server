@@ -29,7 +29,23 @@ async function postComment(req, res) {
   }
 }
 
+async function getComment(req, res) {
+  try {
+    const { item_idx } = req.params;
+
+    const result = await etcService.getComment(item_idx); 
+
+    response('Success', result, res, 200);
+
+  } catch (error) {
+    console.log(error);
+    errorResponse(error.message, res, error.statusCode);
+
+  }
+}
+
 module.exports = {
   postLogin,
   postComment,
+  getComment,
 };

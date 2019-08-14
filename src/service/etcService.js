@@ -24,7 +24,12 @@ async function postComment(userIdx, item_idx, content) {
     await etcTransaction.insertCommentTransaction(userIdx, item_idx, content);
 }
 
+async function getComment(item_idx) {
+    return await etcDao.selectComment(item_idx);
+}
+
 module.exports = {
     postLogin,
     postComment,
+    getComment,
 };
