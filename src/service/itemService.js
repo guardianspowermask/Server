@@ -18,7 +18,7 @@ async function getItem(categoryIdx, order) {
         const itemIdx = itemIdxs[i].item_idx;
         const item = await itemDao.selectItemDetail(itemIdx);
         item[0].img = s3Location+item[0].img
-        if(item[0].feedback_img.length!=0){
+        if(item[0].feedback_img!=null){
             item[0].feedback_img = s3Location + item[0].feedback_img;
         }
         const storeIdx = item[0].store_idx;
