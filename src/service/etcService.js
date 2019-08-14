@@ -1,4 +1,5 @@
 const etcDao = require('../dao/etcDao');
+const etcTransaction = require('../dao/etcTransaction');
 const { sign } = require('../library/jwtCheck');
 
 async function postLogin(kakao_uuid, name) {
@@ -19,6 +20,11 @@ async function postLogin(kakao_uuid, name) {
     return sign(userIdx);
 }
 
+async function postComment(userIdx, item_idx, content) {
+    await etcTransaction.insertCommentTransaction(userIdx, item_idx, content);
+}
+
 module.exports = {
     postLogin,
+    postComment,
 };
