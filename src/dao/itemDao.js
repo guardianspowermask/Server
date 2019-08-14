@@ -34,7 +34,7 @@ async function selectAllItemIdx(){
 
 async function selectItemDetail(itemIdx){
     const sql = `
-    SELECT * FROM Guardians.ITEM WHERE item_idx = ?
+    SELECT item_idx, name, img, report_cnt, feedback_flag, store_idx FROM Guardians.ITEM WHERE item_idx = ?
     `;
 
     const result = await mysql.query(sql, [itemIdx]);
