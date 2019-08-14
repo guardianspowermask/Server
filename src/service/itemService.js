@@ -22,8 +22,8 @@ async function getItem(categoryIdx, order) {
       const store = await itemDao.selectStoreDetail(storeIdx);
       delete item[0].store_idx;
       item[0].store = store[0].name;
-      item[0].email = store[0].email;
-      item[0].facebook = store[0].facebook;
+    //   item[0].email = store[0].email;
+    //   item[0].facebook = store[0].facebook;
       items.push(item[0]);
     }
     result.total_cnt = itemsLength;
