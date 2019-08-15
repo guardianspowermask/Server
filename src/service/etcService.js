@@ -1,6 +1,7 @@
 const etcDao = require('../dao/etcDao');
 const etcTransaction = require('../dao/etcTransaction');
 const { sign } = require('../library/jwtCheck');
+const s3Location = require('../../config/s3Config').s3Location;
 
 async function postLogin(kakao_uuid, name) {
     const selectRes = await etcDao.selectUserIdx(kakao_uuid);
@@ -45,8 +46,17 @@ async function getComment(item_idx) {
     return comments
 }
 
+async function getFeedback(item_idx) {
+    const result = await etcDao.selectFeedback(item_idx);
+    
+    result[0].img = s3Location + result[0].img;
+
+    return result
+}
+
 module.exports = {
     postLogin,
     postComment,
     getComment,
+    getFeedback,
 };

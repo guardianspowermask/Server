@@ -44,8 +44,24 @@ async function getComment(req, res) {
   }
 }
 
+async function getFeedback(req, res) {
+  try {
+    const { item_idx } = req.params;
+
+    const result = await etcService.getFeedback(item_idx); 
+
+    response('Success', result, res, 200);
+
+  } catch (error) {
+    console.log(error);
+    errorResponse(error.message, res, error.statusCode);
+
+  }
+}
+
 module.exports = {
   postLogin,
   postComment,
   getComment,
+  getFeedback,
 };

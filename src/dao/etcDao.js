@@ -44,9 +44,21 @@ async function selectUserNameByUserIdx(user_idx){
     return result
 }
 
+async function selectFeedback(item_idx) {
+    const sql = `
+    SELECT feedback_img AS img, feedback_date AS date FROM ITEM WHERE item_idx =  (?);
+    `;
+
+    const result = await mysql.query(sql, [item_idx]);
+
+    return result
+
+}
+
 module.exports = {
     selectUserIdx,
     insertUser,
     selectComment,
     selectUserNameByUserIdx,
+    selectFeedback,
 };
