@@ -34,8 +34,19 @@ async function selectComment(item_idx){
     return result;
 }
 
+async function selectUserNameByUserIdx(user_idx){
+    const sql = `
+    SELECT name FROM USER WHERE user_idx = (?);
+    `;
+
+    const result = await mysql.query(sql, [user_idx]);
+
+    return result
+}
+
 module.exports = {
     selectUserIdx,
     insertUser,
     selectComment,
+    selectUserNameByUserIdx,
 };

@@ -24,8 +24,25 @@ async function postComment(userIdx, item_idx, content) {
     await etcTransaction.insertCommentTransaction(userIdx, item_idx, content);
 }
 
+function makeAnonymous(name){
+    let anonym = name[0];
+
+    for (let i=1; i<name.length; i++) {
+        anonym += '*';
+    }
+
+    return anonym
+}
+
 async function getComment(item_idx) {
-    return await etcDao.selectComment(item_idx);
+    const comments = await etcDao.selectComment(item_idx);
+    
+    for (let i=0; i<comments.length; i++) {
+        const result = await etcDao.selectUserNameByUserIdx(comments[i].user_idx);
+        comments[i].name = makeAnonymous(result[0].name);
+    }
+
+    return comments
 }
 
 module.exports = {
