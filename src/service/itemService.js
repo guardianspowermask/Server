@@ -25,6 +25,9 @@ async function getItem(categoryIdx, order) {
         const store = await itemDao.selectStoreDetail(storeIdx);
         delete item[0].store_idx;
         item[0].store = store[0].name;
+        //todo : 추후에 지우기
+        item[0].email = "";
+        item[0].facebook = "";
         //   item[0].email = store[0].email;
         //   item[0].facebook = store[0].facebook;
         items.push(item[0]);
