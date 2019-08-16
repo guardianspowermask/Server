@@ -55,7 +55,7 @@ async function getFeedback(req, res) {
 
     const result = await etcService.getFeedback(item_idx); 
 
-    response('Success', result, res, 200);
+    response('Success', {img: result[0].img, date: result[0].date}, res, 200);
 
   } catch (error) {
     console.log(error);
