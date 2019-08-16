@@ -24,9 +24,7 @@ async function postLogin(kakao_uuid, name) {
 async function postComment(userIdx, item_idx, content) {
     const result = await etcTransaction.insertCommentTransaction(userIdx, item_idx, content);
 
-    if (result) {
-        return true;
-    }
+    return result;
 }
 
 function makeAnonymous(name){

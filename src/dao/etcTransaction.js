@@ -7,11 +7,7 @@ async function chkExist(connection, item_idx, user_idx){
     
     const result = await connection.query(sql, [item_idx, user_idx]);
 
-    if (result.length != 0)
-        return true;
-    else
-        return false;
-
+    return result.length
 }
 
 async function updateReportCnt(connection, item_idx){
@@ -27,7 +23,7 @@ async function insertCommentTransaction(userIdx, item_idx, content) {
 
     await mysql.transaction(async (connection) => {
         // chk already exist
-        if (chkExist(connection, item_idx, userIdx)){
+        if (await chkExist(connection, item_idx, userIdx)>0){
             flag = true;
             
         } else {
@@ -43,8 +39,7 @@ async function insertCommentTransaction(userIdx, item_idx, content) {
         }
     });
 
-    if (flag)
-        return true;
+    return flag;
 }
 
 module.exports = {
