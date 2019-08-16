@@ -62,6 +62,19 @@ async function updateItemReport(itemIdx){
     return result;
 }
 
+async function selectReportFlag(userIdx, itemIdx){
+    const sql = `
+    SELECT user_comment_idx FROM USER_COMMENT WHERE user_idx = (?) AND item_idx = (?)
+    `;
+
+    const result = await mysql.query(sql, [userIdx, itemIdx]);
+
+    if (result.length!=0)
+        return true;
+    else
+        return false
+}
+
 module.exports = {
     selectItemIdx,
     getItemCount,
@@ -69,4 +82,5 @@ module.exports = {
     selectItemDetail,
     selectStoreDetail,
     updateItemReport,
+    selectReportFlag,
 }

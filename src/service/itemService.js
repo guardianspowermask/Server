@@ -2,7 +2,7 @@ const itemDao = require('../dao/itemDao');
 const itemTransaction = require('../dao/itemTransaction.js');
 const s3Location = require('../../config/s3Config').s3Location;
 
-async function getItem(categoryIdx, order) {
+async function getItem(categoryIdx, order, userIdx) {
     const result = {};
     const items = [];
     let itemIdxs;
@@ -30,6 +30,11 @@ async function getItem(categoryIdx, order) {
         item[0].facebook = "";
         //   item[0].email = store[0].email;
         //   item[0].facebook = store[0].facebook;
+
+        // if token take
+        if (userIdx) {
+            item[0].report_flag = await itemDao.selectReportFlag(userIdx, itemIdx);
+        }
         items.push(item[0]);
     }
     result.total_cnt = itemsLength;

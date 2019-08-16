@@ -1,11 +1,13 @@
 const itemService = require('../service/itemService');
 const { response, errorResponse } = require('../library/response');
+const { getUserIdxFromJwt } = require('../library/jwtCheck');
 
 async function getItem(req, res) {
   try {
     const { categoryIdx, order } = req.params;
+    const userIdx = getUserIdxFromJwt(req.headers.authorization);
 
-    const result = await itemService.getItem(categoryIdx, order);
+    const result = await itemService.getItem(categoryIdx, order, userIdx);
 
     response('Success', result, res, 200);
   } catch (error) {
