@@ -18,9 +18,14 @@ async function postComment(req, res) {
     const { item_idx, content } = req.body;
     const userIdx = getUserIdxFromJwt(req.headers.authorization);
 
-    await etcService.postComment(userIdx, item_idx, content); 
+    const result = await etcService.postComment(userIdx, item_idx, content); 
 
-    response('Success', {}, res, 200);
+    // already exist comment
+    if (result)
+      response('항의는 한 번만 할 수 있습니다.', {}, res, 200);
+
+    else
+      response('Success', {}, res, 200);
 
   } catch (error) {
     console.log(error);
