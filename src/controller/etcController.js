@@ -1,6 +1,9 @@
 const etcService = require('../service/etcService');
 const { response, errorResponse } = require('../library/response');
 const { getUserIdxFromJwt } = require('../library/jwtCheck');
+const moment = require('moment');
+
+moment.locale('ko');
 
 async function postLogin(req, res) {
   try {
@@ -55,7 +58,7 @@ async function getFeedback(req, res) {
 
     const result = await etcService.getFeedback(item_idx); 
 
-    response('Success', {img: result[0].img, date: result[0].date}, res, 200);
+    response('Success', {img: result[0].img, date: moment(result[0].date).format('YYYY-MM-DD HH:mm:ss')}, res, 200);
 
   } catch (error) {
     console.log(error);
