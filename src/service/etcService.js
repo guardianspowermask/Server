@@ -56,9 +56,14 @@ async function getFeedback(item_idx) {
     return result
 }
 
+async function postReport(userIdx, user_comment_idx) {
+    await etcDao.insertCommentReport(userIdx, user_comment_idx);
+}
+
 module.exports = {
     postLogin,
     postComment,
     getComment,
     getFeedback,
+    postReport,
 };

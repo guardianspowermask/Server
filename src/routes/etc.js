@@ -17,4 +17,7 @@ router.get('/comment/:item_idx', etcController.getComment);
 // 피드백 보기
 router.get('/feedback/:item_idx', etcController.getFeedback);
 
+// 신고하기
+router.post('/report', etcController.postReport);
+
 module.exports = router;

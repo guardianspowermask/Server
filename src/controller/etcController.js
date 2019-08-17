@@ -64,9 +64,32 @@ async function getFeedback(req, res) {
   }
 }
 
+async function postReport(req, res) {
+  try {
+    const { user_comment_idx } = req.body;
+    const userIdx = getUserIdxFromJwt(req.headers.authorization);
+
+    if (userIdx==null) {
+      response('Must be send token.', {}, res, 200);
+
+    } else {
+      await etcService.postReport(userIdx, user_comment_idx); 
+
+      response('Success', {}, res, 200);
+      
+    }
+
+  } catch (error) {
+    console.log(error);
+    errorResponse(error.message, res, error.statusCode);
+
+  }
+}
+
 module.exports = {
   postLogin,
   postComment,
   getComment,
   getFeedback,
+  postReport,
 };

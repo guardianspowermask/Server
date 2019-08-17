@@ -55,10 +55,19 @@ async function selectFeedback(item_idx) {
 
 }
 
+async function insertCommentReport(userIdx, user_comment_idx) {
+    const sql = `
+    INSERT INTO REPORT_COMMENT (user_comment_idx, user_idx) VALUES (?, ?);
+    `;
+
+    await mysql.query(sql, [user_comment_idx, userIdx]);
+}
+
 module.exports = {
     selectUserIdx,
     insertUser,
     selectComment,
     selectUserNameByUserIdx,
     selectFeedback,
+    insertCommentReport,
 };
