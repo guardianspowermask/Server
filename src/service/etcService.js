@@ -60,10 +60,17 @@ async function postReport(userIdx, user_comment_idx) {
     await etcDao.insertCommentReport(userIdx, user_comment_idx);
 }
 
+async function putFeedback(item_idx, file) {
+    const img = file.location.split(s3Location)[1];
+
+    await etcDao.updateFeedback(item_idx, img);
+}
+
 module.exports = {
     postLogin,
     postComment,
     getComment,
     getFeedback,
     postReport,
+    putFeedback,
 };

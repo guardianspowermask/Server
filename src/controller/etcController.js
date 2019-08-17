@@ -86,10 +86,27 @@ async function postReport(req, res) {
   }
 }
 
+async function putFeedback(req, res) {
+  try {
+    const { item_idx } = req.body;
+    const { file } = req;
+
+    await etcService.putFeedback(item_idx, file); 
+
+    response('Success', {}, res, 200);
+
+  } catch (error) {
+    console.log(error);
+    errorResponse(error.message, res, error.statusCode);
+
+  }
+}
+
 module.exports = {
   postLogin,
   postComment,
   getComment,
   getFeedback,
   postReport,
+  putFeedback,
 };

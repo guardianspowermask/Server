@@ -1,6 +1,8 @@
 const express = require('express');
 
-const router = express.Router();
+const router = express.Router()
+
+const upload = require('../library/s3Bucket').getMulter('guardians');;
 
 // etcController
 const etcController = require('../controller/etcController');
@@ -19,5 +21,8 @@ router.get('/feedback/:item_idx', etcController.getFeedback);
 
 // 신고하기
 router.post('/report', etcController.postReport);
+
+// 피드백 등록
+router.put('/feedback', upload.single('img'), etcController.putFeedback);
 
 module.exports = router;

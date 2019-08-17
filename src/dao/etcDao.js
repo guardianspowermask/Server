@@ -63,6 +63,13 @@ async function insertCommentReport(userIdx, user_comment_idx) {
     await mysql.query(sql, [user_comment_idx, userIdx]);
 }
 
+async function updateFeedback(item_idx, img) {
+    const sql = `
+    UPDATE ITEM SET feedback_flag = 1, feedback_img = (?), feedback_date = (?) WHERE item_idx = (?);
+    `;
+
+    await mysql.query(sql, [img, new Date(), item_idx]);
+}
 module.exports = {
     selectUserIdx,
     insertUser,
@@ -70,4 +77,5 @@ module.exports = {
     selectUserNameByUserIdx,
     selectFeedback,
     insertCommentReport,
+    updateFeedback,
 };
