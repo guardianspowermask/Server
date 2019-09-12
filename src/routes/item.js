@@ -2,13 +2,15 @@ const express = require('express');
 
 const router = express.Router();
 
+const { jwtCheck } = require('../library/jwtCheck');
+
 const upload = require('../library/s3Bucket').getMulter('guardians');
 
 // itemController
 const itemController = require('../controller/itemController');
 
 // item 가져오기
-router.get('/:categoryIdx/:order', itemController.getItem);
+router.get('/:categoryIdx/:order', jwtCheck, itemController.getItem);
 
 // item 항의 증가
 router.put('/:itemIdx/report', itemController.plusItemReport);
