@@ -1,11 +1,16 @@
 const itemService = require('../service/itemService');
+const { jwtCheck } = require('../library/jwtCheck');
 const { response, errorResponse } = require('../library/response');
 const { getUserIdxFromJwt } = require('../library/jwtCheck');
 
 async function getItem(req, res) {
   try {
     const { categoryIdx, order } = req.params;
-    const userIdx = getUserIdxFromJwt(req.headers.authorization);
+    var userIdx = null;
+    if(req.headers.authorization){
+      jwtCheck(req, res, ()=>{});
+      userIdx = getUserIdxFromJwt(req.headers.authorization);
+    }
 
     const result = await itemService.getItem(categoryIdx, order, userIdx);
 
